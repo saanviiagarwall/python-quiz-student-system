@@ -1,0 +1,150 @@
+import pickle
+def insert():
+    f=open('student.dat','ab+')
+    while True:
+        rollno=int(input('enter roll no:'))
+        name=input('enter name:')
+        phone_no=int(input('enter phone no.:'))
+        L=[rollno, name, phone_no]
+        pickle.dump(L,f)
+        n=input('do you want to add more details? (y/n):')
+        if n=='y':
+            continue
+        else:
+            break
+    f.close()
+def display():
+    f=open('student.dat','rb')
+    try:
+        while True:
+            print(pickle.load(f))
+    except EOFError:
+        f.close()
+insert()
+display()
+
+
+
+import csv
+def createfile():
+    f=open('studentrec.csv','a')
+    while True:
+        rollno=int(input('enter roll no:'))
+        name=input('enter name:')
+        totalmarks=int(input('enter total marks:'))
+        overallgrade=int(input('enter total marks: '))
+        w=csv.writer(f)
+        L=[rollno, name, totalmarks, overallgrade]
+        w.writerow(L)
+        n=input('do you want to add more details? (y/n):')
+        if n=='y':
+            continue
+        else:
+            break
+    f.close()
+def readrec():
+    f=open('studentrec.csv','r')
+    r=csv.reader(f)
+    for row in r:
+        print(row)
+    f.close()
+createfile()
+readrec()
+
+'''
+
+import time
+
+easy_questions = [
+    {
+        "question": "Capital of India?",
+        "options": ["A. Mumbai", "B. Delhi", "C. Kolkata", "D. Chennai"],
+        "answer": "B"
+    },
+    {
+        "question": "2 + 2 = ?",
+        "options": ["A. 3", "B. 4", "C. 5", "D. 6"],
+        "answer": "B"
+    }
+]
+
+medium_questions = [
+    {
+        "question": "Who developed Python?",
+        "options": ["A. Elon Musk", "B. Guido van Rossum", "C. Bill Gates", "D. Mark Zuckerberg"],
+        "answer": "B"
+    },
+    {
+        "question": "Which is a database?",
+        "options": ["A. Python", "B. HTML", "C. MySQL", "D. CSS"],
+        "answer": "C"
+    }
+]
+
+hard_questions = [
+    {
+        "question": "What does AI stand for?",
+        "options": ["A. Artificial Intelligence", "B. Automated Internet", "C. Advanced Input", "D. None"],
+        "answer": "A"
+    },
+    {
+        "question": "Which module is used for dates in Python?",
+        "options": ["A. random", "B. math", "C. datetime", "D. sys"],
+        "answer": "C"
+    }
+]
+
+print("\nWelcome to Quiz Game")
+print("Select difficulty level:")
+print("1. Easy")
+print("2. Medium")
+print("3. Hard")
+
+choice = input("Enter choice: ")
+
+if choice == "1":
+    questions = easy_questions
+elif choice == "2":
+    questions = medium_questions
+elif choice == "3":
+    questions = hard_questions
+else:
+    print("Invalid choice")
+    exit()
+
+score = 0
+time_limit = 10  # seconds per question
+
+for q in questions:
+    print("\n" + q["question"])
+    for option in q["options"]:
+        print(option)
+
+    start_time = time.time()
+    user_answer = input(f"You have {time_limit} seconds. Enter answer: ").upper()
+    end_time = time.time()
+
+    if end_time - start_time > time_limit:
+        print("Time up! ❌")
+        continue
+
+    if user_answer == q["answer"]:
+        print("Correct! ✅")
+        score += 1
+    else:
+        print("Wrong! ❌")
+
+print("\nQuiz Finished!")
+print("Score:", score, "/", len(questions))
+
+percentage = (score / len(questions)) * 100
+print("Percentage:", percentage, "%")
+
+
+
+if percentage >= 75:
+    print("Excellent!")
+elif percentage >= 50:
+    print("Good job!")
+else:
+    print("Keep practicing!")
